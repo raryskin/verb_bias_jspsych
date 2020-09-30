@@ -3,6 +3,8 @@
   <head>
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="jspsych/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jspsych/plugins/jspsych-image-button-response.js"></script>
     <link href="jspsych/css/jspsych.css" rel="stylesheet">
     <style>
     .fixation{position: relative; width: 200px; height: 100px; border: 2px solid black;}
@@ -17,6 +19,11 @@
   outline-color: black;}
     .bottomright{position: absolute; bottom: 10px; right: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
   outline-color: black;}
+  .imgTL{position: absolute; top: 10px; left: 10px; }
+  .imgTR{position: absolute; top: 10px; right: 10px; }
+  .imgBL{position: absolute; bottom: 10px; left: 10px; }
+  .imgBR{position: absolute; bottom: 10px; right: 10px; }
+
     </style>
   </head>
 
@@ -104,7 +111,7 @@
 
     var vwp_trials = [
       {word_1: 'SOCKS', word_2: 'SHOE', word_3: 'SLOW', word_4: 'FAST', both_wordds: true, related: true},
-      {word_1: 'SOCKS2', word_2: 'SHOE2', word_3: 'SLOW2', word_4: 'FAST2', both_wordds: true, related: true}
+      {word_1: 'SOCKS2', word_2: 'SHOE2', word_3: 'SLOW2', word_4: "<img src='pics/bird_mitten.png' >", both_wordds: true, related: true}
     ]
 
     var vwp_proc = {
@@ -115,6 +122,64 @@
     }
 
     timeline.push(vwp_proc);
+
+   var test_pic = {
+    type: 'image-keyboard-response',
+    stimulus: 'pics/cow.png',
+    choices: ['v', 'b']
+    //prompt: "<p>Is this person happy or sad?</p>"
+    };
+
+
+//    var vwp_timeline2 =[];
+
+  /*  var vwp_stimulus_pics = {
+      type: 'image-keyboard-response',
+      stimulus: function(){
+        return "<div> <span class='imgTL'><img src="+
+        jsPsych.timelineVariable('picTL', true)+
+        "/></span><span class='imgTR'><img src="+
+        jsPsych.timelineVariable('picTR', true)+
+        "/></span><span class='imgBL'><img src="+
+        jsPsych.timelineVariable('picBL', true)+
+        "/></span><span class='imgBR'><img src="+
+        jsPsych.timelineVariable('picBR', true)+
+        "/></span> </div>"
+      },
+      data: {
+        related: jsPsych.timelineVariable('related'),
+        phase: 'test-vwp2'
+      },
+      choices: ["v","b","n","m"]
+    }*/
+/*    var vwp_stimulus_pics = {
+      type: 'image-keyboard-response',
+      stimulus: function(){
+        return "<div> <span class='imgTL'><img src='pics/bird_mitten.png'/></span> </div>"
+      },
+      data: {
+        related: jsPsych.timelineVariable('related'),
+        phase: 'test-vwp2'
+      },
+      choices: ["v","b","n","m"]
+    }
+
+    vwp_timeline2.push(vwp_stimulus_pics);
+
+    var vwp_pics_trials = [
+      {picTL: 'pics/bear_candle.png', picTR: 'pics/bird_mitten.png', picBL: 'pics/bunny_feather.png', picBR: 'pics/cow.png', both_wordds: true, related: true},
+      {picTL: 'pics/dog.png', picTR: 'pics/duckling.png', picBL: 'pics/fish.png', picBR: 'pics/fan.png', both_wordds: true, related: true}
+    ]
+
+    var vwp_proc2 = {
+      timeline: vwp_timeline2,
+      timeline_variables: vwp_pics_trials,
+      randomize_order: true,
+      repetitions: 1 //other options = sample, with or without replacement, etc.
+    }
+
+    timeline.push(vwp_proc2);*/
+
 
     var gbye = {
       type: 'html-keyboard-response',
