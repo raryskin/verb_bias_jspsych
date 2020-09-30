@@ -101,7 +101,7 @@
         " ></span> </div>"
       },
       data: {
-        related: jsPsych.timelineVariable('related'),
+        related: jsPsych.timelineVariable('trialID'),
         phase: 'test-vwp'
       },
       choices: ["v","b","n","m"]
@@ -110,8 +110,8 @@
     vwp_timeline.push(vwp_stimulus);
 
     var vwp_trials = [
-      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', both_wordds: true, related: true},
-      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', both_wordds: true, related: true}
+      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', trialID: 1},
+      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', trialID: 2}
     ]
 
     var vwp_proc = {
@@ -190,7 +190,10 @@
     timeline.push(gbye);
 
     jsPsych.init({
-      timeline: timeline
+      timeline: timeline,
+      on_finish: function() {
+    jsPsych.data.displayData();
+  }
     })
 
   </script>
