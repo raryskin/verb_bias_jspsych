@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jspsych/jspsych.js"></script>
+    <script src="jspsych/plugins/jspsych-html-keyboard-response.js"></script>
+    <link href="jspsych/css/jspsych.css" rel="stylesheet">
+    <style>
+    .fixation{position: relative; width: 200px; height: 100px; border: 2px solid black;}
+    .fixation span {width: 200px; text-align: center; left: 0px;}
+    .top{position: absolute; top: 0px;}
+    .bottom{position: absolute; bottom: 0px;}
+    </style>
+  </head>
+
+  <body>
+
+  </body>
+  <script>
+
+    var trial = {
+      type: 'html-keyboard-response',
+      stimulus: 'Hello world.'
+    }
+
+    var timeline = [];
+
+    timeline.push(trial);
+
+    var lexical_decision_timeline =[];
+
+    // fixation trial with a box response
+    var fixation = {
+      type: 'html-keyboard-response',
+      stimulus: "<div class='fixation'></div>",
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 1000
+    }
+
+    lexical_decision_timeline.push(fixation);
+
+    var stimulus = {
+      type: 'html-keyboard-response',
+      stimulus: function(){
+        return"<div class='fixation'> <span class='top'>"+
+        jsPsych.timelineVariable('word_1', true)+
+        "</span><span class='bottom'>"+
+        jsPsych.timelineVariable('word_2', true)+
+        "</span> </div>"
+      },
+      data: {
+        related: jsPsych.timelineVariable('related'),
+        phase: 'test-lexical'
+      },
+      choices: ["y","n"]
+    }
+
+    lexical_decision_timeline.push(stimulus);
+
+    var trials = [
+      {word_1: 'SOCKS', word_2: 'SHOE', both_wordds: true, related: true},
+      {word_1: 'SLOW', word_2: 'FAST', both_wordds: true, related: true}
+    ]
+
+    var lexical_decision_proc = {
+      timeline: lexical_decision_timeline,
+      timeline_variables: trials,
+      randomize_order: true,
+      repetitions: 2 //other options = sample, with or without replacement, etc.
+    }
+
+    timeline.push(lexical_decision_proc);
+
+    jsPsych.init({
+      timeline: timeline
+    })
+
+  </script>
+</html>
