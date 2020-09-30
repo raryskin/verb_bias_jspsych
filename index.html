@@ -90,15 +90,15 @@
     var vwp_stimulus = {
       type: 'html-keyboard-response',
       stimulus: function(){
-        return"<div> <span class='topleft'>"+
-        jsPsych.timelineVariable('word_1', true)+
-        "</span><span class='topright'>"+
-        jsPsych.timelineVariable('word_2', true)+
-        "</span><span class='bottomleft'>"+
-        jsPsych.timelineVariable('word_3', true)+
-        "</span><span class='bottomright'>"+
-        jsPsych.timelineVariable('word_4', true)+
-        "</span> </div>"
+        return"<div> <span class='topleft'> <img src="+
+        jsPsych.timelineVariable('picTL', true)+
+        " ></span><span class='topright'> <img src="+
+        jsPsych.timelineVariable('picTR', true)+
+        " ></span><span class='bottomleft'> <img src="+
+        jsPsych.timelineVariable('picBL', true)+
+        " ></span><span class='bottomright'> <img src="+
+        jsPsych.timelineVariable('picBR', true)+
+        " ></span> </div>"
       },
       data: {
         related: jsPsych.timelineVariable('related'),
@@ -110,8 +110,8 @@
     vwp_timeline.push(vwp_stimulus);
 
     var vwp_trials = [
-      {word_1: 'SOCKS', word_2: 'SHOE', word_3: 'SLOW', word_4: 'FAST', both_wordds: true, related: true},
-      {word_1: 'SOCKS2', word_2: 'SHOE2', word_3: 'SLOW2', word_4: "<img src='pics/bird_mitten.png' >", both_wordds: true, related: true}
+      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', both_wordds: true, related: true},
+      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', both_wordds: true, related: true}
     ]
 
     var vwp_proc = {
