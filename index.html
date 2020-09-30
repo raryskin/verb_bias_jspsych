@@ -34,56 +34,13 @@
 
     var hello = {
       type: 'html-keyboard-response',
-      stimulus: 'Hello world.'
+      stimulus: 'Hello.'
     }
 
     var timeline = [];
 
     timeline.push(hello);
 
-    var lexical_decision_timeline =[];
-
-    // fixation trial with a box response
-    var fixation = {
-      type: 'html-keyboard-response',
-      stimulus: "<div class='fixation'></div>",
-      choices: jsPsych.NO_KEYS,
-      trial_duration: 1000
-    }
-
-    lexical_decision_timeline.push(fixation);
-
-    var stimulus = {
-      type: 'html-keyboard-response',
-      stimulus: function(){
-        return"<div class='fixation'> <span class='top'>"+
-        jsPsych.timelineVariable('word_1', true)+
-        "</span><span class='bottom'>"+
-        jsPsych.timelineVariable('word_2', true)+
-        "</span> </div>"
-      },
-      data: {
-        related: jsPsych.timelineVariable('related'),
-        phase: 'test-lexical'
-      },
-      choices: ["y","n"]
-    }
-
-    lexical_decision_timeline.push(stimulus);
-
-    var trials = [
-      {word_1: 'SOCKS', word_2: 'SHOE', both_wordds: true, related: true},
-      {word_1: 'SLOW', word_2: 'FAST', both_wordds: true, related: true}
-    ]
-
-    var lexical_decision_proc = {
-      timeline: lexical_decision_timeline,
-      timeline_variables: trials,
-      randomize_order: true,
-      repetitions: 1 //other options = sample, with or without replacement, etc.
-    }
-
-    timeline.push(lexical_decision_proc);
 
     var vwp_timeline =[];
 
@@ -122,63 +79,6 @@
     }
 
     timeline.push(vwp_proc);
-
-   var test_pic = {
-    type: 'image-keyboard-response',
-    stimulus: 'pics/cow.png',
-    choices: ['v', 'b']
-    //prompt: "<p>Is this person happy or sad?</p>"
-    };
-
-
-//    var vwp_timeline2 =[];
-
-  /*  var vwp_stimulus_pics = {
-      type: 'image-keyboard-response',
-      stimulus: function(){
-        return "<div> <span class='imgTL'><img src="+
-        jsPsych.timelineVariable('picTL', true)+
-        "/></span><span class='imgTR'><img src="+
-        jsPsych.timelineVariable('picTR', true)+
-        "/></span><span class='imgBL'><img src="+
-        jsPsych.timelineVariable('picBL', true)+
-        "/></span><span class='imgBR'><img src="+
-        jsPsych.timelineVariable('picBR', true)+
-        "/></span> </div>"
-      },
-      data: {
-        related: jsPsych.timelineVariable('related'),
-        phase: 'test-vwp2'
-      },
-      choices: ["v","b","n","m"]
-    }*/
-/*    var vwp_stimulus_pics = {
-      type: 'image-keyboard-response',
-      stimulus: function(){
-        return "<div> <span class='imgTL'><img src='pics/bird_mitten.png'/></span> </div>"
-      },
-      data: {
-        related: jsPsych.timelineVariable('related'),
-        phase: 'test-vwp2'
-      },
-      choices: ["v","b","n","m"]
-    }
-
-    vwp_timeline2.push(vwp_stimulus_pics);
-
-    var vwp_pics_trials = [
-      {picTL: 'pics/bear_candle.png', picTR: 'pics/bird_mitten.png', picBL: 'pics/bunny_feather.png', picBR: 'pics/cow.png', both_wordds: true, related: true},
-      {picTL: 'pics/dog.png', picTR: 'pics/duckling.png', picBL: 'pics/fish.png', picBR: 'pics/fan.png', both_wordds: true, related: true}
-    ]
-
-    var vwp_proc2 = {
-      timeline: vwp_timeline2,
-      timeline_variables: vwp_pics_trials,
-      randomize_order: true,
-      repetitions: 1 //other options = sample, with or without replacement, etc.
-    }
-
-    timeline.push(vwp_proc2);*/
 
 
     var gbye = {
