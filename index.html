@@ -9,6 +9,14 @@
     .fixation span {width: 200px; text-align: center; left: 0px;}
     .top{position: absolute; top: 0px;}
     .bottom{position: absolute; bottom: 0px;}
+    .topleft{position: absolute; top: 10px; left: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
+  outline-color: black;}
+    .topright{position: absolute; top: 10px; right: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
+  outline-color: black;}
+    .bottomleft{position: absolute; bottom: 10px;left: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
+  outline-color: black;}
+    .bottomright{position: absolute; bottom: 10px; right: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
+  outline-color: black;}
     </style>
   </head>
 
@@ -17,14 +25,14 @@
   </body>
   <script>
 
-    var trial = {
+    var hello = {
       type: 'html-keyboard-response',
       stimulus: 'Hello world.'
     }
 
     var timeline = [];
 
-    timeline.push(trial);
+    timeline.push(hello);
 
     var lexical_decision_timeline =[];
 
@@ -65,10 +73,56 @@
       timeline: lexical_decision_timeline,
       timeline_variables: trials,
       randomize_order: true,
-      repetitions: 2 //other options = sample, with or without replacement, etc.
+      repetitions: 1 //other options = sample, with or without replacement, etc.
     }
 
     timeline.push(lexical_decision_proc);
+
+    var vwp_timeline =[];
+
+    var vwp_stimulus = {
+      type: 'html-keyboard-response',
+      stimulus: function(){
+        return"<div> <span class='topleft'>"+
+        jsPsych.timelineVariable('word_1', true)+
+        "</span><span class='topright'>"+
+        jsPsych.timelineVariable('word_2', true)+
+        "</span><span class='bottomleft'>"+
+        jsPsych.timelineVariable('word_3', true)+
+        "</span><span class='bottomright'>"+
+        jsPsych.timelineVariable('word_4', true)+
+        "</span> </div>"
+      },
+      data: {
+        related: jsPsych.timelineVariable('related'),
+        phase: 'test-vwp'
+      },
+      choices: ["v","b","n","m"]
+    }
+
+    vwp_timeline.push(vwp_stimulus);
+
+    var vwp_trials = [
+      {word_1: 'SOCKS', word_2: 'SHOE', word_3: 'SLOW', word_4: 'FAST', both_wordds: true, related: true},
+      {word_1: 'SOCKS2', word_2: 'SHOE2', word_3: 'SLOW2', word_4: 'FAST2', both_wordds: true, related: true}
+    ]
+
+    var vwp_proc = {
+      timeline: vwp_timeline,
+      timeline_variables: vwp_trials,
+      randomize_order: true,
+      repetitions: 1 //other options = sample, with or without replacement, etc.
+    }
+
+    timeline.push(vwp_proc);
+
+    var gbye = {
+      type: 'html-keyboard-response',
+      stimulus: "You're done."
+    }
+
+
+    timeline.push(gbye);
 
     jsPsych.init({
       timeline: timeline
