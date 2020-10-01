@@ -4,7 +4,8 @@
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych/plugins/jspsych-image-keyboard-response.js"></script>
-    <script src="jspsych/plugins/jspsych-image-button-response.js"></script>
+    <script src="jspsych/plugins/jspsych-html-button-response.js"></script>
+    <script src="jspsych/plugins/jspsych-vwp-click.js"></script>
     <link href="jspsych/css/jspsych.css" rel="stylesheet">
     <style>
     .fixation{position: relative; width: 200px; height: 100px; border: 2px solid black;}
@@ -41,7 +42,6 @@
 
     timeline.push(hello);
 
-
     var vwp_timeline =[];
 
     var vwp_stimulus = {
@@ -58,7 +58,7 @@
         " ></span> </div>"
       },
       data: {
-        related: jsPsych.timelineVariable('trialID'),
+        trialID: jsPsych.timelineVariable('trialID'),
         phase: 'test-vwp'
       },
       choices: ["v","b","n","m"]
@@ -80,6 +80,23 @@
 
     timeline.push(vwp_proc);
 
+    var vwp_test = {
+      type: 'vwp-click',
+      visual_stimulus: 'pics/cow.png',
+      choices: ['y','n'],
+      parameter_name: 'Hello.'
+    }
+
+    timeline.push(vwp_test);
+
+    var trial1 = {
+        type: 'html-button-response',
+        stimulus: '<p>Running</p>',
+        choices: ['Healthy', 'Unhealthy'],
+        prompt: "<p>Is this activity healthy or unhealthy?</p>"
+    };
+
+    timeline.push(trial1);
 
     var gbye = {
       type: 'html-keyboard-response',
