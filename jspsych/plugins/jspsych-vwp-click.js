@@ -38,12 +38,39 @@ jsPsych.plugins["vwp-click"] = (function() {
   plugin.trial = function(display_element, trial) {
 
     // display stimulus
-    var html = '<div><img src="'+trial.visual_stimulus+'" ></div>';
+    var html = '<div><img src="'+trial.visual_stimulus+'" id="bloop" data-choice="duckling"></div>';
     console.log(html);
     // render
     display_element.innerHTML = html;
 
-    // data saving
+    // start timing
+    var start_time = performance.now();
+
+    display_element.querySelector('#bloop').addEventListener('click', function(e){
+      var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
+      after_response(choice);
+    });
+
+    // store response
+    var response = {
+      rt: null,
+      clicked_on: null
+    };
+
+
+    function after_response(choice) {
+
+      // measure rt
+      var end_time = performance.now();
+      var rt = end_time - start_time;
+      response.clicked_on = choice;
+      response.rt = rt;
+
+
+      if (trial.response_ends_trial) {
+        end_trial();
+      }
+    };
 
     // function to end trial when it is time
     function end_trial() {
@@ -53,8 +80,10 @@ jsPsych.plugins["vwp-click"] = (function() {
 
         // gather the data to store for the trial
       var trial_data = {
-        visual_stimulus: trial.visual_stimulus,
-        parameter_name: 'parameter value'
+        "visual_stimulus": trial.visual_stimulus,
+        "rt": response.rt,
+        //"stimulus": trial.stimulus,
+        "clicked_on": response.clicked_on
       };
 
       // end trial
