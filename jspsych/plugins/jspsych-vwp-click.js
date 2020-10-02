@@ -11,7 +11,19 @@ jsPsych.plugins["vwp-click"] = (function() {
   plugin.info = {
     name: "vwp-click",
     parameters: {
-      visual_stimulus: {
+      picTL: {
+        type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
+        default: undefined
+      },
+      picTR: {
+        type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
+        default: undefined
+      },
+      picBL: {
+        type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
+        default: undefined
+      },
+      picBR: {
         type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
         default: undefined
       },
@@ -37,8 +49,20 @@ jsPsych.plugins["vwp-click"] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
+    /*var screen_params = "<style> .topleft{}
+      .topright{position: absolute; top: 10px; right: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
+    outline-color: black;}
+      .bottomleft{position: absolute; bottom: 10px;left: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
+    outline-color: black;}
+      .bottomright{position: absolute; bottom: 10px; right: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
+    outline-color: black;} </style>";*/
+
     // display stimulus
-    var html = '<div><img src="'+trial.visual_stimulus+'" id="bloop" data-choice="duckling"></div>';
+    var html = "<div><span id='picTL' data-choice='TL' style='position: absolute; top: 10px; width: 48.5%; height: 48%; left: 10px; border: 2px solid black;'><img src='"+trial.picTL+
+    "' style='vertical-align:middle;margin:50px 0px;'> </span><span id='picTR' data-choice='TR' style='position: absolute; top: 10px; width: 48.5%; height: 48%; right: 10px; border: 2px solid black;'><img src='"+trial.picTR+
+    "' style='vertical-align:middle;margin:50px 0px;'></span><span id='picBL' data-choice='BL' style='position: absolute; bottom: 10px; width: 48.5%; height: 48%; left: 10px; border: 2px solid black;'><img src='"+trial.picBL+
+    "' style='vertical-align:middle;margin:50px 0px;'></span><span id='picBR' data-choice='BR' style='position: absolute; bottom: 10px; width: 48.5%; height: 48%; right: 10px; border: 2px solid black;'><img src='"+trial.picBR+
+    "' style='vertical-align:middle;margin:50px 0px;'></span></div>";
     console.log(html);
     // render
     display_element.innerHTML = html;
@@ -46,7 +70,22 @@ jsPsych.plugins["vwp-click"] = (function() {
     // start timing
     var start_time = performance.now();
 
-    display_element.querySelector('#bloop').addEventListener('click', function(e){
+    display_element.querySelector('#picTL').addEventListener('click', function(e){
+      var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
+      after_response(choice);
+    });
+
+    display_element.querySelector('#picTR').addEventListener('click', function(e){
+      var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
+      after_response(choice);
+    });
+
+    display_element.querySelector('#picBL').addEventListener('click', function(e){
+      var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
+      after_response(choice);
+    });
+
+    display_element.querySelector('#picBR').addEventListener('click', function(e){
       var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
       after_response(choice);
     });
