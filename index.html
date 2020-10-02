@@ -101,6 +101,7 @@
       picTR: function(){ return jsPsych.timelineVariable('picTR', true)},
       picBL: function(){ return jsPsych.timelineVariable('picBL', true)},
       picBR: function(){ return jsPsych.timelineVariable('picBR', true)},
+      audio_stim: function(){ return jsPsych.timelineVariable('audio_stim', true)},
       data: {
         trialID: jsPsych.timelineVariable('trialID'),
         phase: 'test-vwp'
@@ -111,8 +112,8 @@
     vwp_timeline2.push(vwp_stimulus2);
 
     var vwp_trials2 = [
-      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', trialID: 1},
-      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', trialID: 2}
+      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', audio_stim: 'jspsych/examples/sound/speech_green.mp3', trialID: 1},
+      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', audio_stim: 'jspsych/examples/sound/speech_green.mp3', trialID: 2}
     ]
 
     var vwp_proc2 = {

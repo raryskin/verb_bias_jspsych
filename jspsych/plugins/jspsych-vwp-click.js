@@ -27,6 +27,12 @@ jsPsych.plugins["vwp-click"] = (function() {
         type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
         default: undefined
       },
+      audio_stim: {
+				type: jsPsych.plugins.parameterType.AUDIO,
+        pretty_name: 'Audio',
+				default: undefined,
+				description: 'The audio to be played.'
+			},
       choices: {
         type: jsPsych.plugins.parameterType.KEYCODE,
         array: true,
@@ -44,6 +50,18 @@ jsPsych.plugins["vwp-click"] = (function() {
   }
 
   plugin.trial = function(display_element, trial) {
+
+    // setup stimulus
+    var context = jsPsych.pluginAPI.audioContext();
+    console.log(context);
+    if(context !== null){
+      var source = context.createBufferSource();
+      source.buffer = jsPsych.pluginAPI.getAudioBuffer(trial.audio_stim);
+      source.connect(context.destination);
+    } else {
+      var audio = jsPsych.pluginAPI.getAudioBuffer(trial.audio_stim);
+      audio.currentTime = 0;
+    }
 
 
     // display stimulus
@@ -104,6 +122,16 @@ jsPsych.plugins["vwp-click"] = (function() {
     // function to end trial when it is time
     function end_trial() {
 
+      // stop the audio file if it is playing
+			// remove end event listeners if they exist
+			if(context !== null){
+				source.stop();
+				source.onended = function() { }
+			} else {
+				audio.pause();
+				audio.removeEventListener('ended', end_trial);
+			}
+
       // kill any remaining setTimeout handlers
       jsPsych.pluginAPI.clearAllTimeouts();
 
@@ -129,9 +157,21 @@ jsPsych.plugins["vwp-click"] = (function() {
       persist: false,
       allow_held_key: false
     });
+
+
+    // start time
+    var start_time = performance.now();
+
+    // start audio
+    if(context !== null){
+      startTime = context.currentTime;
+      source.start(startTime);
+    } else {
+      audio.play();
+    };
+
+
   };
-
-
 
   return plugin;
 })();
