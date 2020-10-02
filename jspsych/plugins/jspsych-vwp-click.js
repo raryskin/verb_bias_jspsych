@@ -49,20 +49,14 @@ jsPsych.plugins["vwp-click"] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
-    /*var screen_params = "<style> .topleft{}
-      .topright{position: absolute; top: 10px; right: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
-    outline-color: black;}
-      .bottomleft{position: absolute; bottom: 10px;left: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
-    outline-color: black;}
-      .bottomright{position: absolute; bottom: 10px; right: 10px; width: 48%; height: 47%; border: 2px solid black;outline-style: solid;
-    outline-color: black;} </style>";*/
 
     // display stimulus
-    var html = "<div><span id='picTL' data-choice='TL' style='position: absolute; top: 10px; width: 48.5%; height: 48%; left: 10px; border: 2px solid black;'><img src='"+trial.picTL+
-    "' style='vertical-align:middle;margin:50px 0px;'> </span><span id='picTR' data-choice='TR' style='position: absolute; top: 10px; width: 48.5%; height: 48%; right: 10px; border: 2px solid black;'><img src='"+trial.picTR+
-    "' style='vertical-align:middle;margin:50px 0px;'></span><span id='picBL' data-choice='BL' style='position: absolute; bottom: 10px; width: 48.5%; height: 48%; left: 10px; border: 2px solid black;'><img src='"+trial.picBL+
-    "' style='vertical-align:middle;margin:50px 0px;'></span><span id='picBR' data-choice='BR' style='position: absolute; bottom: 10px; width: 48.5%; height: 48%; right: 10px; border: 2px solid black;'><img src='"+trial.picBR+
-    "' style='vertical-align:middle;margin:50px 0px;'></span></div>";
+    var html = "<div><span id='picTL' data-choice='TL' style='position: absolute; top: 10px; width: 48.5%; height: 48%; left: 10px; border: 2px solid black;'><img src='"+
+    trial.picTL + "' style='vertical-align:middle;margin:50px 0px;'> </span><span id='picTR' data-choice='TR' style='position: absolute; top: 10px; width: 48.5%; height: 48%; right: 10px; border: 2px solid black;'><img src='"+
+    trial.picTR + "' style='vertical-align:middle;margin:50px 0px;'></span><span id='picBL' data-choice='BL' style='position: absolute; bottom: 10px; width: 48.5%; height: 48%; left: 10px; border: 2px solid black;'><img src='"+
+    trial.picBL + "' style='vertical-align:middle;margin:50px 0px;'></span><span id='picBR' data-choice='BR' style='position: absolute; bottom: 10px; width: 48.5%; height: 48%; right: 10px; border: 2px solid black;'><img src='"+
+    trial.picBR + "' style='vertical-align:middle;margin:50px 0px;'></span></div>";
+
     console.log(html);
     // render
     display_element.innerHTML = html;
@@ -124,6 +118,9 @@ jsPsych.plugins["vwp-click"] = (function() {
         //"stimulus": trial.stimulus,
         "clicked_on": response.clicked_on
       };
+
+      // clear the display
+      display_element.innerHTML = '';
 
       // end trial
       jsPsych.finishTrial(trial_data);
