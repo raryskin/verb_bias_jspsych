@@ -60,33 +60,29 @@
     };
 
     timeline.push(sound);
-/*    var vwp_timeline =[];
+
+    var vwp_timeline =[];
 
     var vwp_stimulus = {
-      type: 'html-keyboard-response',
-      stimulus: function(){
-        return"<div> <span class='topleft'> <img src="+
-        jsPsych.timelineVariable('picTL', true)+
-        " ></span><span class='topright'> <img src="+
-        jsPsych.timelineVariable('picTR', true)+
-        " ></span><span class='bottomleft'> <img src="+
-        jsPsych.timelineVariable('picBL', true)+
-        " ></span><span class='bottomright'> <img src="+
-        jsPsych.timelineVariable('picBR', true)+
-        " ></span> </div>"
-      },
+      type: 'vwp-click',
+      picTL: function(){ return jsPsych.timelineVariable('picTL', true)},
+      picTR: function(){ return jsPsych.timelineVariable('picTR', true)},
+      picBL: function(){ return jsPsych.timelineVariable('picBL', true)},
+      picBR: function(){ return jsPsych.timelineVariable('picBR', true)},
+      audio_stim: function(){ return jsPsych.timelineVariable('audio_stim', true)},
+      delay: 1000,
       data: {
         trialID: jsPsych.timelineVariable('trialID'),
         phase: 'test-vwp'
       },
-      choices: ["v","b","n","m"]
+      choices: ["z"]
     }
 
     vwp_timeline.push(vwp_stimulus);
 
     var vwp_trials = [
-      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', trialID: 1},
-      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', trialID: 2}
+      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', audio_stim: 'sounds/speech_green.mp3', trialID: 1},
+      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', audio_stim: 'sounds/speech_green.mp3', trialID: 2}
     ]
 
     var vwp_proc = {
@@ -99,51 +95,6 @@
     timeline.push(vwp_proc);
 
 
-    var vwp_test = {
-      type: 'vwp-click',
-      picTL: 'pics/duckling.png',
-      picTR: 'pics/cow.png',
-      picBL: 'pics/bird_mitten.png',
-      picBR: 'pics/fan.png',
-      choices: ['z']
-    }
-
-    timeline.push(vwp_test);
-*/
-
-    var vwp_timeline2 =[];
-
-    var vwp_stimulus2 = {
-      type: 'vwp-click',
-      picTL: function(){ return jsPsych.timelineVariable('picTL', true)},
-      picTR: function(){ return jsPsych.timelineVariable('picTR', true)},
-      picBL: function(){ return jsPsych.timelineVariable('picBL', true)},
-      picBR: function(){ return jsPsych.timelineVariable('picBR', true)},
-      audio_stim: function(){ return jsPsych.timelineVariable('audio_stim', true)},
-      data: {
-        trialID: jsPsych.timelineVariable('trialID'),
-        phase: 'test-vwp'
-      },
-      choices: ["z"]
-    }
-
-    vwp_timeline2.push(vwp_stimulus2);
-
-    var vwp_trials2 = [
-      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', audio_stim: 'sounds/speech_green.mp3', trialID: 1},
-      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', audio_stim: 'sounds/speech_green.mp3', trialID: 2}
-    ]
-
-    var vwp_proc2 = {
-      timeline: vwp_timeline2,
-      timeline_variables: vwp_trials2,
-      randomize_order: true,
-      repetitions: 1 //other options = sample, with or without replacement, etc.
-    }
-
-    timeline.push(vwp_proc2);
-
-
     var gbye = {
       type: 'html-keyboard-response',
       stimulus: "You're done."
@@ -152,8 +103,16 @@
 
     timeline.push(gbye);
 
+          // an array of paths to images that need to be loaded
+      var images = ['pics/bird_mitten.png'];
+      var audio = ['sounds/speech_green.mp3'];
+
+
+
     jsPsych.init({
       timeline: timeline,
+      preload_audio: audio,
+      preload_images: images,
       use_webaudio: false,
       on_finish: function() {
     jsPsych.data.displayData();

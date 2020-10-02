@@ -40,6 +40,13 @@ jsPsych.plugins["vwp-click"] = (function() {
         default: jsPsych.ALL_KEYS,
         description: 'The keys the subject is allowed to press to respond to the stimulus.'
       },
+      delay: {
+        type: jsPsych.plugins.parameterType.INT,
+        //array: true,
+        pretty_name: 'preview time',
+        default: 0,
+        description: 'The delay in milliseconds between onset of pictures and onset of audio.'
+      },
       response_ends_trial: {
         type: jsPsych.plugins.parameterType.BOOL,
         pretty_name: 'Response ends trial',
@@ -75,17 +82,6 @@ jsPsych.plugins["vwp-click"] = (function() {
     // render
     display_element.innerHTML = html;
 
-    // start timing
-    var start_time = performance.now();
-
-    // start audio
-    if(context !== null){
-      startTime = context.currentTime;
-      source.start(startTime);
-    } else {
-      audio.play();
-      console.log(audio);
-    };
 
     display_element.querySelector('#picTL').addEventListener('click', function(e){
       var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
@@ -113,6 +109,35 @@ jsPsych.plugins["vwp-click"] = (function() {
       clicked_on: null
     };
 
+
+
+    if (trial.delay > 0) {
+      jsPsych.pluginAPI.setTimeout(function() {
+        // start audio
+        if(context !== null){
+          startTime = context.currentTime;
+          source.start(startTime);
+        } else {
+          audio.play();
+          console.log(audio);
+        };
+
+      }, trial.delay);
+      // start timing
+      var start_time = performance.now();
+
+    } else {// start audio
+      if(context !== null){
+        startTime = context.currentTime;
+        source.start(startTime);
+      } else {
+        audio.play();
+        console.log(audio);
+      };
+      // start timing
+      var start_time = performance.now();
+
+    }
 
     function after_response(choice) {
 
@@ -146,9 +171,12 @@ jsPsych.plugins["vwp-click"] = (function() {
 
         // gather the data to store for the trial
       var trial_data = {
-        "visual_stimulus": trial.visual_stimulus,
+        "picTL": trial.picTL,
+        "picTR": trial.picTR,
+        "picBL": trial.picBL,
+        "picBR": trial.picBR,
         "rt": response.rt,
-        //"stimulus": trial.stimulus,
+        "audio_stim": trial.audio_stim,
         "clicked_on": response.clicked_on
       };
 
