@@ -27,10 +27,6 @@ jsPsych.plugins["vwp-click"] = (function() {
         type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
         default: undefined
       },
-      parameter_name: {
-        type: jsPsych.plugins.parameterType.IMAGE,
-        default: undefined
-      },
       choices: {
         type: jsPsych.plugins.parameterType.KEYCODE,
         array: true,
