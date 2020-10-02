@@ -3,7 +3,7 @@
   <head>
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugins/jspsych-html-keyboard-response.js"></script>
-    <script src="jspsych/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jspsych/plugins/jspsych-audio-keyboard-response.js"></script>
     <script src="jspsych/plugins/jspsych-html-button-response.js"></script>
     <script src="jspsych/plugins/jspsych-vwp-click.js"></script>
     <link href="jspsych/css/jspsych.css" rel="stylesheet">
@@ -42,6 +42,24 @@
 
     timeline.push(hello);
 
+    var trial1 = {
+        type: 'html-button-response',
+        stimulus: '<p>Running</p>',
+        choices: ['Healthy', 'Unhealthy'],
+        prompt: "<p>Is this activity healthy or unhealthy?</p>"
+    };
+
+    timeline.push(trial1);
+
+    var sound = {
+    type: 'audio-keyboard-response',
+    stimulus: 'sounds/speech_green.mp3',
+    choices: ['e', 'i'],
+    prompt: "<p>Is the pitch high or low? Press 'e' for low and 'i' for high.</p>",
+    response_ends_trial: true
+    };
+
+    timeline.push(sound);
 /*    var vwp_timeline =[];
 
     var vwp_stimulus = {
@@ -112,8 +130,8 @@
     vwp_timeline2.push(vwp_stimulus2);
 
     var vwp_trials2 = [
-      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', audio_stim: 'jspsych/examples/sound/speech_green.mp3', trialID: 1},
-      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', audio_stim: 'jspsych/examples/sound/speech_green.mp3', trialID: 2}
+      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', audio_stim: 'sounds/speech_green.mp3', trialID: 1},
+      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', audio_stim: 'sounds/speech_green.mp3', trialID: 2}
     ]
 
     var vwp_proc2 = {
@@ -126,15 +144,6 @@
     timeline.push(vwp_proc2);
 
 
-    var trial1 = {
-        type: 'html-button-response',
-        stimulus: '<p>Running</p>',
-        choices: ['Healthy', 'Unhealthy'],
-        prompt: "<p>Is this activity healthy or unhealthy?</p>"
-    };
-
-    timeline.push(trial1);
-
     var gbye = {
       type: 'html-keyboard-response',
       stimulus: "You're done."
@@ -145,6 +154,7 @@
 
     jsPsych.init({
       timeline: timeline,
+      use_webaudio: false,
       on_finish: function() {
     jsPsych.data.displayData();
   }

@@ -78,6 +78,15 @@ jsPsych.plugins["vwp-click"] = (function() {
     // start timing
     var start_time = performance.now();
 
+    // start audio
+    if(context !== null){
+      startTime = context.currentTime;
+      source.start(startTime);
+    } else {
+      audio.play();
+      console.log(audio);
+    };
+
     display_element.querySelector('#picTL').addEventListener('click', function(e){
       var choice = e.currentTarget.getAttribute('data-choice'); // don't use dataset for jsdom compatibility
       after_response(choice);
@@ -157,18 +166,6 @@ jsPsych.plugins["vwp-click"] = (function() {
       persist: false,
       allow_held_key: false
     });
-
-
-    // start time
-    var start_time = performance.now();
-
-    // start audio
-    if(context !== null){
-      startTime = context.currentTime;
-      source.start(startTime);
-    } else {
-      audio.play();
-    };
 
 
   };
