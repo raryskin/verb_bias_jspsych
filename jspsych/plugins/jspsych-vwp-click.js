@@ -11,7 +11,7 @@ jsPsych.plugins["vwp-click"] = (function() {
   plugin.info = {
     name: "vwp-click",
     parameters: {
-      picTL: {
+  /*    picTL: {
         type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
         default: undefined
       },
@@ -24,6 +24,22 @@ jsPsych.plugins["vwp-click"] = (function() {
         default: undefined
       },
       picBR: {
+        type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
+        default: undefined
+      },*/
+      pic1: {
+        type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
+        default: undefined
+      },
+      pic2: {
+        type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
+        default: undefined
+      },
+      pic3: {
+        type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
+        default: undefined
+      },
+      pic4: {
         type: jsPsych.plugins.parameterType.HTML_STRING, // BOOL, STRING, INT, FLOAT, FUNCTION, KEYCODE, SELECT, HTML_STRING, IMAGE, AUDIO, VIDEO, OBJECT, COMPLEX
         default: undefined
       },
@@ -70,13 +86,23 @@ jsPsych.plugins["vwp-click"] = (function() {
       audio.currentTime = 0;
     }
 
+    var all_pics = [trial.pic1, trial.pic2, trial.pic3, trial.pic4];
+    console.log(all_pics);
+
+    var shuffled_pics = _.shuffle(all_pics);
+    console.log(shuffled_pics);
+
+    var picTL = shuffled_pics[0];
+    var picTR = shuffled_pics[1];
+    var picBL = shuffled_pics[2];
+    var picBR = shuffled_pics[3];
 
     // display stimulus
     var html = "<div><span id='picTL' data-choice='TL' style='position: absolute; top: 10px; width: 48.5%; height: 48%; left: 10px; border: 2px solid black;'><img src='"+
-    trial.picTL + "' style='vertical-align:middle;margin:50px 0px;'> </span><span id='picTR' data-choice='TR' style='position: absolute; top: 10px; width: 48.5%; height: 48%; right: 10px; border: 2px solid black;'><img src='"+
-    trial.picTR + "' style='vertical-align:middle;margin:50px 0px;'></span><span id='picBL' data-choice='BL' style='position: absolute; bottom: 10px; width: 48.5%; height: 48%; left: 10px; border: 2px solid black;'><img src='"+
-    trial.picBL + "' style='vertical-align:middle;margin:50px 0px;'></span><span id='picBR' data-choice='BR' style='position: absolute; bottom: 10px; width: 48.5%; height: 48%; right: 10px; border: 2px solid black;'><img src='"+
-    trial.picBR + "' style='vertical-align:middle;margin:50px 0px;'></span></div>";
+    picTL + "' style='vertical-align:middle;margin:50px 0px;'> </span><span id='picTR' data-choice='TR' style='position: absolute; top: 10px; width: 48.5%; height: 48%; right: 10px; border: 2px solid black;'><img src='"+
+    picTR + "' style='vertical-align:middle;margin:50px 0px;'></span><span id='picBL' data-choice='BL' style='position: absolute; bottom: 10px; width: 48.5%; height: 48%; left: 10px; border: 2px solid black;'><img src='"+
+    picBL + "' style='vertical-align:middle;margin:50px 0px;'></span><span id='picBR' data-choice='BR' style='position: absolute; bottom: 10px; width: 48.5%; height: 48%; right: 10px; border: 2px solid black;'><img src='"+
+    picBR + "' style='vertical-align:middle;margin:50px 0px;'></span></div>";
 
     console.log(html);
     // render
@@ -171,10 +197,10 @@ jsPsych.plugins["vwp-click"] = (function() {
 
         // gather the data to store for the trial
       var trial_data = {
-        "picTL": trial.picTL,
-        "picTR": trial.picTR,
-        "picBL": trial.picBL,
-        "picBR": trial.picBR,
+        "picTL": picTL,
+        "picTR": picTR,
+        "picBL": picBL,
+        "picBR": picBR,
         "rt": response.rt,
         "audio_stim": trial.audio_stim,
         "clicked_on": response.clicked_on

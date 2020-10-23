@@ -6,6 +6,8 @@
     <script src="jspsych/plugins/jspsych-audio-keyboard-response.js"></script>
     <script src="jspsych/plugins/jspsych-html-button-response.js"></script>
     <script src="jspsych/plugins/jspsych-vwp-click.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.11.0/underscore-min.js"></script>
+    <script src="verb_bias_stim.js"></script>
     <link href="jspsych/css/jspsych.css" rel="stylesheet">
     <style>
     .fixation{position: relative; width: 200px; height: 100px; border: 2px solid black;}
@@ -65,10 +67,10 @@
 
     var vwp_stimulus = {
       type: 'vwp-click',
-      picTL: function(){ return jsPsych.timelineVariable('picTL', true)},
-      picTR: function(){ return jsPsych.timelineVariable('picTR', true)},
-      picBL: function(){ return jsPsych.timelineVariable('picBL', true)},
-      picBR: function(){ return jsPsych.timelineVariable('picBR', true)},
+      pic1: function(){ return jsPsych.timelineVariable('pic1', true)},
+      pic2: function(){ return jsPsych.timelineVariable('pic2', true)},
+      pic3: function(){ return jsPsych.timelineVariable('pic3', true)},
+      pic4: function(){ return jsPsych.timelineVariable('pic4', true)},
       audio_stim: function(){ return jsPsych.timelineVariable('audio_stim', true)},
       delay: 1000,
       data: {
@@ -81,8 +83,8 @@
     vwp_timeline.push(vwp_stimulus);
 
     var vwp_trials = [
-      {picTL: 'pics/bird_mitten.png', picTR: 'pics/bunny_feather.png', picBL: 'pics/bear_candle.png', picBR: 'pics/fish.png', audio_stim: 'sounds/speech_green.mp3', trialID: 1},
-      {picTL: 'pics/duckling.png', picTR: 'pics/cow.png', picBL: 'pics/fan.png', picBR: 'pics/dog.png', audio_stim: 'sounds/speech_green.mp3', trialID: 2}
+      {pic1: 'pics/bird_mitten.png', pic2: 'pics/bunny_feather.png', pic3: 'pics/bear_candle.png', pic4: 'pics/fish.png', audio_stim: 'sounds/speech_green.mp3', trialID: 1},
+      {pic1: 'pics/duckling.png', pic2: 'pics/cow.png', pic3: 'pics/fan.png', pic4: 'pics/dog.png', audio_stim: 'sounds/speech_green.mp3', trialID: 2}
     ]
 
     var vwp_proc = {
