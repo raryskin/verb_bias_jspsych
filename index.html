@@ -7,7 +7,8 @@
     <script src="jspsych/plugins/jspsych-html-button-response.js"></script>
     <script src="jspsych/plugins/jspsych-vwp-click.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/underscore@1.11.0/underscore-min.js"></script>
-    <script src="verb_bias_stim.js"></script>
+  <!--  <script src="verb_bias_stim.js"></script> -->
+    <script src="test_stim.js"></script>
     <link href="jspsych/css/jspsych.css" rel="stylesheet">
     <style>
     .fixation{position: relative; width: 200px; height: 100px; border: 2px solid black;}
@@ -37,7 +38,7 @@
 
     var hello = {
       type: 'html-keyboard-response',
-      stimulus: 'Hello.'
+      stimulus: 'In this task you will hear an instruction and act it out using the pictures on the screen and your mouse.'
     }
 
     var timeline = [];
@@ -51,7 +52,7 @@
         prompt: "<p>Is this activity healthy or unhealthy?</p>"
     };
 
-    timeline.push(trial1);
+  //  timeline.push(trial1);
 
     var sound = {
     type: 'audio-keyboard-response',
@@ -61,20 +62,20 @@
     response_ends_trial: true
     };
 
-    timeline.push(sound);
+  //  timeline.push(sound);
 
     var vwp_timeline =[];
 
     var vwp_stimulus = {
       type: 'vwp-click',
-      pic1: function(){ return jsPsych.timelineVariable('pic1', true)},
-      pic2: function(){ return jsPsych.timelineVariable('pic2', true)},
-      pic3: function(){ return jsPsych.timelineVariable('pic3', true)},
-      pic4: function(){ return jsPsych.timelineVariable('pic4', true)},
-      audio_stim: function(){ return jsPsych.timelineVariable('audio_stim', true)},
+      pic1: function(){ return "pics/" + jsPsych.timelineVariable('ta', true) + ".png"},
+      pic2: function(){ return "pics/" + jsPsych.timelineVariable('ti', true) + ".png"},
+      pic3: function(){ return "pics/" + jsPsych.timelineVariable('da', true) + ".png"},
+      pic4: function(){ return "pics/" + jsPsych.timelineVariable('di', true) + ".png"},
+      audio_stim: function(){ return "sounds/" + jsPsych.timelineVariable('soundID', true) + "_sentence1.mp3"},
       delay: 1000,
       data: {
-        trialID: jsPsych.timelineVariable('trialID'),
+        trialID: jsPsych.timelineVariable('TrialID'),
         phase: 'test-vwp'
       },
       choices: ["z"]
@@ -89,7 +90,7 @@
 
     var vwp_proc = {
       timeline: vwp_timeline,
-      timeline_variables: vwp_trials,
+      timeline_variables: test_stim,
       randomize_order: true,
       repetitions: 1 //other options = sample, with or without replacement, etc.
     }
@@ -106,15 +107,15 @@
     timeline.push(gbye);
 
           // an array of paths to images that need to be loaded
-      var images = ['pics/bird_mitten.png'];
-      var audio = ['sounds/speech_green.mp3'];
+      //var images = ['pics/bird_mitten.png'];
+      var audio = ['sounds/84_sentence1.mp3','sounds/56_sentence1.mp3'];
 
 
 
     jsPsych.init({
       timeline: timeline,
       preload_audio: audio,
-      preload_images: images,
+      //preload_images: images,
       use_webaudio: false,
       on_finish: function() {
     jsPsych.data.displayData();
