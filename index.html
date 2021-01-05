@@ -9,8 +9,9 @@
     <script src="sounds_list.js"></script>
     <script src="pics_list.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/underscore@1.11.0/underscore-min.js"></script>
-  <!--  <script src="verb_bias_stim.js"></script> -->
-    <script src="test_stim.js"></script>
+    <script src="verb_bias_stim1.js"></script>
+    <script src="verb_bias_stim2.js"></script>
+    <script src="verb_bias_practice.js"></script>
     <link href="jspsych/css/jspsych.css" rel="stylesheet">
     <style>
     .fixation{position: relative; width: 200px; height: 100px; border: 2px solid black;}
@@ -38,6 +39,17 @@
   </body>
   <script>
 
+    var list  = Math.ceil(Math.random()*100);
+    var list_odd = list % 2;
+    //console.log(list_odd);
+    if(list_odd == 0){
+      var stim = stim1;
+    } else{
+      var stim = stim2;
+    }
+    //console.log(stim);
+
+
     var hello = {
       type: 'html-keyboard-response',
       stimulus: 'In this task you will hear an instruction and act it out using the pictures on the screen and your mouse.'
@@ -46,6 +58,35 @@
     var timeline = [];
 
     timeline.push(hello);
+
+
+    var prac_timeline =[];
+
+    var prac_stimulus = {
+      type: 'vwp-click',
+      pic1: function(){ return "pics/" + jsPsych.timelineVariable('ta', true) + ".png"},
+      pic2: function(){ return "pics/" + jsPsych.timelineVariable('ti', true) + ".png"},
+      pic3: function(){ return "pics/" + jsPsych.timelineVariable('da', true) + ".png"},
+      pic4: function(){ return "pics/" + jsPsych.timelineVariable('di', true) + ".png"},
+      audio_stim: function(){ return "sounds/" + jsPsych.timelineVariable('soundID', true) + "_sentence1.mp3"},
+      delay: 1000,
+      data: {
+        trialID: jsPsych.timelineVariable('TrialID'),
+        phase: 'practice-vwp'
+      },
+      choices: ["z"]
+    }
+
+    prac_timeline.push(prac_stimulus);
+
+    var prac_proc = {
+      timeline: prac_timeline,
+      timeline_variables: practice_stim,
+      randomize_order: false,
+      repetitions: 1 //other options = sample, with or without replacement, etc.
+    }
+
+    timeline.push(prac_proc);
 
 
     var vwp_timeline =[];
@@ -60,6 +101,7 @@
       delay: 1000,
       data: {
         trialID: jsPsych.timelineVariable('TrialID'),
+        list: jsPsych.timelineVariable('List'),
         phase: 'test-vwp'
       },
       choices: ["z"]
@@ -74,7 +116,7 @@
 
     var vwp_proc = {
       timeline: vwp_timeline,
-      timeline_variables: test_stim,
+      timeline_variables: stim,
       randomize_order: true,
       repetitions: 1 //other options = sample, with or without replacement, etc.
     }
@@ -91,15 +133,13 @@
     timeline.push(gbye);
 
           // an array of paths to images that need to be loaded
-      //var images = ['pics/bird_mitten.png'];
+      //var images = ['pics/bird_mitten.png', 'pics/bear_candle.png'];
      //var audio = ['sounds/84_sentence1.mp3','sounds/56_sentence1.mp3'];
 
 
-// console.log(audio);
-//console.log(sounds_list);
-
     jsPsych.init({
       timeline: timeline,
+      show_progress_bar: false,
       preload_audio: sounds_list,
       //preload_images: images,
       use_webaudio: false,

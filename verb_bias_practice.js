@@ -1,0 +1,50 @@
+var practice_stim = [
+  {
+    "List": 1,
+    "TestOrder": 1,
+    "TrialID": "p1",
+    "Type": "Practice",
+    "Verb": "Use",
+    "TargetAnimal": "bird",
+    "TargetInstrument": "mitten",
+    "DistractorAnimal": "chicken",
+    "DistractorInstrument": "cup",
+    "ta": "bird_mitten",
+    "ti": "mitten",
+    "da": "chicken_cup",
+    "di": "cup",
+    "soundID": 133
+  },
+  {
+    "List": 1,
+    "TestOrder": 2,
+    "TrialID": "p2",
+    "Type": "Practice",
+    "Verb": "Wave",
+    "TargetAnimal": "camel",
+    "TargetInstrument": "hat",
+    "DistractorAnimal": "fish",
+    "DistractorInstrument": "flag",
+    "ta": "camel_hat",
+    "ti": "hat",
+    "da": "fish_flag",
+    "di": "flag",
+    "soundID": 134
+  },
+  {
+    "List": 1,
+    "TestOrder": 3,
+    "TrialID": "p3",
+    "Type": "Practice",
+    "Verb": "Touch",
+    "TargetAnimal": "frog",
+    "TargetInstrument": "shell",
+    "DistractorAnimal": "butterfly",
+    "DistractorInstrument": "towel",
+    "ta": "frog_shell",
+    "ti": "shell",
+    "da": "butterfly_towel",
+    "di": "towel",
+    "soundID": 135
+  }
+  ]
