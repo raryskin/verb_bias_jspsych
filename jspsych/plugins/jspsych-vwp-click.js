@@ -73,16 +73,17 @@ jsPsych.plugins["vwp-click"] = (function() {
   }
 
   plugin.trial = function(display_element, trial) {
-
+    console.log(trial.audio_stim);
     // setup stimulus
     var context = jsPsych.pluginAPI.audioContext();
-    console.log(context);
+    //console.log(context);
     if(context !== null){
       var source = context.createBufferSource();
       source.buffer = jsPsych.pluginAPI.getAudioBuffer(trial.audio_stim);
       source.connect(context.destination);
     } else {
       var audio = jsPsych.pluginAPI.getAudioBuffer(trial.audio_stim);
+    //  console.log(audio);
       audio.currentTime = 0;
     }
 

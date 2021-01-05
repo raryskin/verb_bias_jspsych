@@ -6,6 +6,8 @@
     <script src="jspsych/plugins/jspsych-audio-keyboard-response.js"></script>
     <script src="jspsych/plugins/jspsych-html-button-response.js"></script>
     <script src="jspsych/plugins/jspsych-vwp-click.js"></script>
+    <script src="sounds_list.js"></script>
+    <script src="pics_list.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/underscore@1.11.0/underscore-min.js"></script>
   <!--  <script src="verb_bias_stim.js"></script> -->
     <script src="test_stim.js"></script>
@@ -45,24 +47,6 @@
 
     timeline.push(hello);
 
-    var trial1 = {
-        type: 'html-button-response',
-        stimulus: '<p>Running</p>',
-        choices: ['Healthy', 'Unhealthy'],
-        prompt: "<p>Is this activity healthy or unhealthy?</p>"
-    };
-
-  //  timeline.push(trial1);
-
-    var sound = {
-    type: 'audio-keyboard-response',
-    stimulus: 'sounds/speech_green.mp3',
-    choices: ['e', 'i'],
-    prompt: "<p>Is the pitch high or low? Press 'e' for low and 'i' for high.</p>",
-    response_ends_trial: true
-    };
-
-  //  timeline.push(sound);
 
     var vwp_timeline =[];
 
@@ -83,10 +67,10 @@
 
     vwp_timeline.push(vwp_stimulus);
 
-    var vwp_trials = [
+  /*  var vwp_trials = [
       {pic1: 'pics/bird_mitten.png', pic2: 'pics/bunny_feather.png', pic3: 'pics/bear_candle.png', pic4: 'pics/fish.png', audio_stim: 'sounds/speech_green.mp3', trialID: 1},
       {pic1: 'pics/duckling.png', pic2: 'pics/cow.png', pic3: 'pics/fan.png', pic4: 'pics/dog.png', audio_stim: 'sounds/speech_green.mp3', trialID: 2}
-    ]
+    ]*/
 
     var vwp_proc = {
       timeline: vwp_timeline,
@@ -108,13 +92,15 @@
 
           // an array of paths to images that need to be loaded
       //var images = ['pics/bird_mitten.png'];
-      var audio = ['sounds/84_sentence1.mp3','sounds/56_sentence1.mp3'];
+     //var audio = ['sounds/84_sentence1.mp3','sounds/56_sentence1.mp3'];
 
 
+// console.log(audio);
+//console.log(sounds_list);
 
     jsPsych.init({
       timeline: timeline,
-      preload_audio: audio,
+      preload_audio: sounds_list,
       //preload_images: images,
       use_webaudio: false,
       on_finish: function() {

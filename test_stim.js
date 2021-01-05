@@ -13,7 +13,7 @@ var test_stim = [
   "ti": "microphone",
   "da": "pig_spoon",
   "di": "spoon",
-  soundID: "56"
+  "soundID": "56"
 },
 {
   List: 2,
@@ -29,6 +29,6 @@ var test_stim = [
   "ti": "microphone",
   "da": "turtle_flower",
   "di": "flower",
-  soundID: "84"
+  "soundID": "84"
 }
 ]
